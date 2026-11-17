@@ -5,6 +5,7 @@ import Overview from './pages/Overview.jsx'
 import Foundations from './pages/Foundations.jsx'
 import Tokens from './pages/Tokens.jsx'
 import Components from './pages/Components.jsx'
+import Studio from './pages/Studio.jsx'
 import {
   ArrowDownRight,
   ArrowRight,
@@ -208,7 +209,7 @@ function App() {
           <Route path="tokens" element={<Tokens />} />
           <Route path="components" element={<Components />} />
         </Route>
-        <Route path="/studio/*" element={<Navigate to="/explore" replace />} />
+        <Route path="/studio" element={<Studio />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </BrowserRouter>
