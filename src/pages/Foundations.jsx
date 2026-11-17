@@ -10,7 +10,14 @@ const palettes = [
   {id:'pastel',name:'Soft Pastel',description:'Gentle colour accents with a light, friendly feel.',tags:['Soft','Expressive'],colors:[['Plum','#745B78'],['Lilac','#B7A2C2'],['Rose','#E3BFC4'],['Butter','#F0DFA8'],['Chalk','#FAF7F2']]},
   {id:'vibrant',name:'Vibrant Studio',description:'Confident, high-energy accents balanced by deep ink.',tags:['Bold','Bright'],colors:[['Night','#17152E'],['Violet','#6846D6'],['Blue','#3478E5'],['Coral','#F07863'],['Lemon','#F2D65C']]},
   {id:'dark-mode',name:'Dark Interface',description:'A layered dark palette for low-light experiences.',tags:['Dark','Interface'],colors:[['Void','#101114'],['Surface','#1B1D22'],['Elevated','#292C33'],['Muted','#9298A5'],['Text','#F1F2F4']]},
-  {id:'mono',name:'Monochrome',description:'A precise grayscale system for restrained interfaces.',tags:['Minimal','Grayscale'],colors:[['Black','#111111'],['Charcoal','#383838'],['Gray','#777777'],['Silver','#BBBBBB'],['White','#F7F7F7']]}
+  {id:'mono',name:'Monochrome',description:'A precise grayscale system for restrained interfaces.',tags:['Minimal','Grayscale'],colors:[['Black','#111111'],['Charcoal','#383838'],['Gray','#777777'],['Silver','#BBBBBB'],['White','#F7F7F7']]},
+  {id:'oceanic',name:'Oceanic',description:'Deep marine blues with crisp aqua accents.',tags:['Blue','Calm'],colors:[['Deep Sea','#102A43'],['Atlantic','#176B87'],['Lagoon','#2CA6A4'],['Foam','#B8E3DF'],['Pearl','#F2F8F7']]},
+  {id:'botanical',name:'Botanical',description:'Leafy greens and grounded natural neutrals.',tags:['Green','Nature'],colors:[['Forest','#193B2D'],['Moss','#547A52'],['Sage','#9DB89A'],['Celadon','#D6E5D2'],['Ivory','#F5F4EA']]},
+  {id:'sunset',name:'Golden Hour',description:'Warm amber, rose and dusk-inspired tones.',tags:['Warm','Sunset'],colors:[['Espresso','#3B2525'],['Rust','#B6533C'],['Apricot','#E99A70'],['Marigold','#F2C66D'],['Cream','#FFF3DC']]},
+  {id:'berry',name:'Berry Studio',description:'Rich berry tones balanced with soft blush.',tags:['Berry','Expressive'],colors:[['Aubergine','#3B1F3A'],['Mulberry','#783B68'],['Berry','#B85C83'],['Blush','#E8B7C8'],['Milk','#FAF0F3']]},
+  {id:'electric',name:'Electric Pop',description:'High-contrast digital accents for expressive interfaces.',tags:['Bright','Digital'],colors:[['Carbon','#161625'],['Electric Blue','#3857F5'],['Cyan','#22C7D6'],['Acid','#D7F35B'],['Snow','#F7F8FC']]},
+  {id:'lavender',name:'Lavender Haze',description:'Soft violets with a deep, grounding plum.',tags:['Violet','Soft'],colors:[['Plum','#29233D'],['Iris','#65558F'],['Wisteria','#9B8BC7'],['Lilac','#D9D1EF'],['Cloud','#F5F2FC']]},
+  {id:'citrus',name:'Citrus Grove',description:'Fresh greens and lively yellow accents.',tags:['Green','Fresh'],colors:[['Pine','#26351E'],['Olive','#63852C'],['Lime','#A9C84A'],['Lemon','#E5EFA5'],['Cream','#FAFBEF']]}
 ];
 const typeSets = [
  {id:'modern-sans',name:'Modern Sans',description:'A balanced hierarchy for contemporary digital products.',tags:['Sans','Product'],items:[['Display',40,600,1.1],['Heading',30,600,1.2],['Title',22,600,1.3],['Body',15,400,1.6],['Label',12,500,1.4],['Caption',11,400,1.4]]},
