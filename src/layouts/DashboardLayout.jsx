@@ -10,7 +10,7 @@ import {
 } from '@phosphor-icons/react';
 
 const sections = [
-  { name: 'Visual Studio', path: '/studio', icon: <Sparkle size={17} weight="regular" />, number: '04' },
+  { name: 'Studio', path: '/studio', icon: <Sparkle size={17} weight="regular" />, number: '04' },
   { name: 'Foundations', path: '/explore/foundations', icon: <Palette size={17} weight="regular" />, number: '01' },
   { name: 'Tokens', path: '/explore/tokens', icon: <Coin size={17} weight="regular" />, number: '02' },
   { name: 'Components', path: '/explore/components', icon: <PuzzlePiece size={17} weight="regular" />, number: '03' },
