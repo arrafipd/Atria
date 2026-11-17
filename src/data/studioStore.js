@@ -53,7 +53,23 @@ export function useStudioData(collection) {
   const [data, setData] = useState(() => {
     try {
       const saved = localStorage.getItem('atria:' + collection);
-      return saved ? JSON.parse(saved) : defaults[collection];
+      if (!saved) return defaults[collection];
+      const parsed = JSON.parse(saved);
+      if (collection === 'tokens' && Array.isArray(parsed)) {
+        return [...defaults.tokens.filter((item) => !parsed.some((savedItem) => savedItem.id === item.id || savedItem.name === item.name)), ...parsed];
+      }
+      if (collection === 'foundations' && parsed && typeof parsed === 'object') {
+        const savedColours = Array.isArray(parsed.colours) ? parsed.colours : [];
+        return {
+          ...defaults.foundations,
+          ...parsed,
+          colours: [
+            ...defaults.foundations.colours.filter((item) => !savedColours.some((savedItem) => savedItem.id === item.id || savedItem.name === item.name)),
+            ...savedColours,
+          ],
+        };
+      }
+      return parsed;
     } catch {
       return defaults[collection];
     }
