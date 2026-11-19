@@ -36,6 +36,7 @@ const foundations = [
 ]
 
 const swatches = ['#171717', '#55534F', '#99958D', '#D5D1C8', '#EEECE7']
+const tickerPhrases = ['DESIGN WITH INTENTION', 'BUILD WITH CLARITY', 'DOCUMENT EVERYTHING']
 
 function LandingPage() {
   const [activeTab, setActiveTab] = useState('Button')
@@ -116,7 +117,15 @@ function LandingPage() {
       </section>
 
       <section className="ticker" aria-label="Atria principles">
-        <div className="ticker-track"><span>DESIGN WITH INTENTION</span><i>✳</i><span>BUILD WITH CLARITY</span><i>✳</i><span>DOCUMENT EVERYTHING</span><i>✳</i><span>DESIGN WITH INTENTION</span><i>✳</i><span>BUILD WITH CLARITY</span><i>✳</i></div>
+        <div className="ticker-track">
+          {[false, true].map((isDuplicate) => (
+            <div className="ticker-group" aria-hidden={isDuplicate || undefined} key={String(isDuplicate)}>
+              {tickerPhrases.map(phrase => (
+                <span className="ticker-item" key={phrase}>{phrase}<i aria-hidden="true">*</i></span>
+              ))}
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="intro-section shell" id="studio">

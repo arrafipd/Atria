@@ -71,8 +71,12 @@ h1 em, h2 em { font-family: Georgia, serif; font-weight: 400; letter-spacing: -.
 .art-bottom span { display: flex; align-items: center; gap: 5px; }
 .art-caption { font-size: 7px; }
 .ticker { overflow: hidden; background: #eae9e4; border-top: 1px solid #e0dfd9; border-bottom: 1px solid #e0dfd9; padding: 16px 0; }
-.ticker-track { display: flex; align-items: center; justify-content: space-around; gap: 30px; min-width: 850px; color: #77756f; font-family: var(--mono); font-size: 9px; letter-spacing: .13em; }
-.ticker-track i { font-style: normal; color: #aaa79f; }
+.ticker-track { display: flex; width: max-content; color: #77756f; font-family: var(--mono); font-size: 9px; letter-spacing: .13em; animation: ticker-scroll 32s linear infinite; }
+.ticker-group { display: flex; flex: none; align-items: center; justify-content: space-around; gap: clamp(34px, 5vw, 88px); min-width: 100vw; padding: 0 clamp(20px, 4vw, 70px); }
+.ticker-item { display: inline-flex; flex: none; align-items: center; gap: clamp(34px, 5vw, 88px); white-space: nowrap; }
+.ticker-item i { font-style: normal; color: #aaa79f; }
+@keyframes ticker-scroll { to { transform: translateX(-50%); } }
+.ticker:hover .ticker-track { animation-play-state: paused; }
 .intro-section { padding-top: 110px; padding-bottom: 116px; }
 .section-index { color: #96938b; font-size: 9px; }
 .intro-content { display: flex; justify-content: space-between; align-items: flex-end; gap: 50px; margin-top: 40px; }
@@ -182,6 +186,10 @@ h2 { font-size: clamp(38px, 5vw, 57px); line-height: 1.05; letter-spacing: -.07e
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+  .ticker-track { width: 100%; animation: none; }
+  .ticker-group { width: 100%; min-width: 0; flex-wrap: wrap; justify-content: space-around; gap: 12px; padding: 0 20px; }
+  .ticker-group[aria-hidden="true"] { display: none; }
+  .ticker-item { gap: 12px; }
 }
 
 /* Contact section */

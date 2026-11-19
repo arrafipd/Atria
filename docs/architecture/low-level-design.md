@@ -153,7 +153,7 @@ Behaviour:
 |---|---|---|---|
 | Navigation | `.nav.shell` | Brand, anchors, GitHub CTA | Links |
 | Hero | `.hero.shell` | Eyebrow, headline, description, CTAs, footnote, preview panel | Links |
-| Ticker | `.ticker` | Static principle phrases | No |
+| Ticker | `.ticker`, `.ticker-track`, `.ticker-group` | Seamless CSS marquee of the principles; duplicate group is `aria-hidden` | Hover pauses; reduced motion uses static phrases |
 | Intro | `.intro-section` | Idea statement and link | Link |
 | Foundations | `.foundations-section` | Four cards from `foundations` | No (cards are articles) |
 | Components | `.components-section` | Playground with tabs and preview | Yes |

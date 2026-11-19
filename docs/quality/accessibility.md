@@ -42,8 +42,9 @@ claim of conformance.
 
 - `prefers-reduced-motion: reduce` reduces transition and animation durations to `0.01ms` and disables
   smooth scrolling.
-- No autoplaying video, carousel, or looping animation is used.
-- The ticker is static text, not a moving marquee.
+- The principles ticker stops its animation and hides its duplicate visual group under reduced motion.
+- The ticker's duplicate content is `aria-hidden`, so assistive technology announces the phrases once.
+- The ticker pauses on hover.
 
 ### Images and icons
 

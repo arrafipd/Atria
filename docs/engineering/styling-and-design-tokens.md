@@ -274,8 +274,9 @@ This is a strong accessibility default. Keep it when adding motion.
 
 ### Ticker
 
-The principles strip is static markup; it is not an animated marquee. The repeated phrases create the
-visual rhythm.
+The principles strip uses `.ticker-track` and two identical `.ticker-group` elements for a seamless
+leftward CSS loop. The duplicate group is hidden from assistive technology. Hover pauses the loop;
+reduced-motion preferences stop it and display only the wrapped, static phrase group.
 
 ---
 

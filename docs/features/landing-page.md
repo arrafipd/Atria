@@ -57,11 +57,13 @@ The stats and palette are illustrative preview content, not connected to real da
 
 ### 2.3 Principles ticker
 
-A static strip of mono-spaced phrases:
+A full-width strip of mono-spaced phrases scrolls continuously from right to left:
 
 `DESIGN WITH INTENTION` · `BUILD WITH CLARITY` · `DOCUMENT EVERYTHING`
 
-The phrases repeat visually to create a ticker effect. It is not an animated marquee.
+The phrase group is duplicated to create a seamless CSS marquee. Hovering pauses the animation.
+The visual duplicate is hidden from assistive technology; users who prefer reduced motion see a
+static, wrapped strip.
 
 ### 2.4 Intro section (`#studio`)
 
@@ -170,7 +172,7 @@ Click copy → navigator.clipboard.writeText('--atria-space-4: 16px;')
 | Emphasis | Georgia italic |
 | Technical labels | DM Mono, uppercase, small sizes, letter spacing |
 | Container | `.shell`, max 1160px, 32px gutters |
-| Motion | Hover transitions, card lift, smooth scroll, reduced-motion override |
+| Motion | Hover transitions, card lift, smooth scroll, looping ticker, reduced-motion override |
 
 ---
 
@@ -180,7 +182,7 @@ Click copy → navigator.clipboard.writeText('--atria-space-4: 16px;')
 |---|---|
 | `≤ 850px` | Hero becomes one column; foundation grid becomes two columns; component layout gap reduces |
 | `≤ 600px` | Shell gutters reduce; nav text links hide; headings scale; hero actions stack; preview panel compresses; cards reduce padding; token strip stacks; footer wraps |
-| Reduced motion | Transitions/animations nearly disabled |
+| Reduced motion | Transitions/animations nearly disabled; ticker animation is stopped and duplicate content is hidden |
 
 The layout was verified at 1440px width for the documentation screenshot. Mobile behaviour is defined
 in CSS and should be checked manually after changes.
@@ -200,7 +202,7 @@ Present:
 Gaps and considerations:
 
 - Some decorative icons are not explicitly hidden from assistive technology.
-- The ticker uses repeated text that could be announced twice; it has an `aria-label` on the section.
+- The ticker has an `aria-label`; its duplicate visual group is hidden from assistive technology.
 - No automated accessibility tests.
 - Contrast has not been formally audited.
 - Foundation cards look interactive but are not links; this should be clarified if they become

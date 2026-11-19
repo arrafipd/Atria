@@ -16,11 +16,13 @@ const library=[
 const btn={display:'inline-flex',alignItems:'center',gap:6,padding:'8px 10px',border:'1px solid var(--line)',background:'#fff',color:'var(--ink)',fontSize:10,cursor:'pointer'};
 function CopyButton({value,label}){const [copied,setCopied]=useState(false);return <button style={btn} onClick={async()=>{try{await navigator.clipboard.writeText(value);setCopied(true);setTimeout(()=>setCopied(false),1300)}catch{}}}>{copied?<Check size={13}/>:<Copy size={13}/>} {copied?'Copied':label||'Copy code'}</button>}
 export default function Components(){
- const [active,setActive]=useState('button');const [variant,setVariant]=useState('Primary');const [tab,setTab]=useState('React');const [buttonText,setButtonText]=useState('Get started');const [inputValue,setInputValue]=useState('hello@example.com');const [dialogOpen,setDialogOpen]=useState(false);const [selectedTab,setSelectedTab]=useState('Overview');const [selectedOption,setSelectedOption]=useState('Design');const [checked,setChecked]=useState(false);const [selected,setSelected]=useState([]);const dialogRef=useRef(null);const dialogTrigger=useRef(null);
+ const [active,setActive]=useState('button');const [variant,setVariant]=useState('Primary');const [tab,setTab]=useState('React');const [buttonText,setButtonText]=useState('Get started');const [inputValue,setInputValue]=useState('hello@example.com');const [dialogOpen,setDialogOpen]=useState(false);const [selectedTab,setSelectedTab]=useState('Overview');const [selectedOption,setSelectedOption]=useState('Design');const [checked,setChecked]=useState(false);const [selected,setSelected]=useState([]);const dialogRef=useRef(null);const dialogTrigger=useRef(null);const [query,setQuery]=useState('');const [category,setCategory]=useState('All');
  const tabNames=['Overview','Activity','Settings'];
  useEffect(()=>{if(!dialogOpen)return;const trigger=dialogTrigger.current;dialogRef.current?.querySelector('button')?.focus();return()=>trigger?.focus()},[dialogOpen]);
  const onDialogKeyDown=e=>{if(e.key==='Escape'){e.stopPropagation();setDialogOpen(false);return}if(e.key!=='Tab')return;const f=[...dialogRef.current.querySelectorAll('button,[href],input,select,textarea,[tabindex]:not([tabindex="-1"])')].filter(x=>!x.disabled);if(!f.length)return;const first=f[0],last=f[f.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}};
  const onTabKeyDown=(e,i)=>{const move={ArrowRight:(i+1)%tabNames.length,ArrowLeft:(i-1+tabNames.length)%tabNames.length,Home:0,End:tabNames.length-1}[e.key];if(move===undefined)return;e.preventDefault();setSelectedTab(tabNames[move]);document.getElementById('atria-tab-'+tabNames[move])?.focus()};
+ const categories=useMemo(()=>['All',...new Set(library.map(x=>x.category))],[]);
+ const filtered=useMemo(()=>{const q=query.trim().toLowerCase();return library.filter(x=>(category==='All'||x.category===category)&&(!q||x.name.toLowerCase().includes(q)||x.description.toLowerCase().includes(q)))},[query,category]);
  const item=useMemo(()=>library.find(x=>x.id===active)||library[0],[active]);
  const previewButton={padding:'10px 16px',border:'1px solid #242420',borderRadius:6,fontSize:12,fontWeight:600,cursor:'pointer',background:variant==='Primary'?'#242420':variant==='Secondary'?'#fff':'transparent',color:variant==='Primary'?'#fff':'#242420'};
  return <div className="studio-page">
@@ -31,15 +33,21 @@ export default function Components(){
     <div><span className="studio-kicker">BROWSE THE LIBRARY</span><p style={{fontSize:11,color:'#777',margin:'5px 0 0'}}>Select several components to copy their CSS together, or open one to inspect its implementation.</p></div>
     <button onClick={()=>navigator.clipboard.writeText(library.filter(x=>selected.includes(x.id)).map(x=>'/* '+x.name+' */\n'+x.css).join('\n\n'))} disabled={!selected.length} style={{...btn,background:selected.length?'#242420':'#f3f2ef',color:selected.length?'#fff':'#999',borderColor:selected.length?'#242420':'var(--line)',opacity:selected.length?1:.65}}> <Copy size={13}/> Copy CSS ({selected.length})</button>
    </div>
+   <div style={{display:'flex',gap:10,flexWrap:'wrap',alignItems:'center',marginBottom:12}}>
+    <input type="search" aria-label="Search components" placeholder="Search by name or description" value={query} onChange={e=>setQuery(e.target.value)} style={{...btn,flex:'1 1 220px',minWidth:0,padding:'9px 11px',fontSize:11}}/>
+    <select aria-label="Filter by category" value={category} onChange={e=>setCategory(e.target.value)} style={{...btn,flex:'0 1 170px'}}>{categories.map(c=><option key={c} value={c}>{c==='All'?'All categories':c}</option>)}</select>
+    <span aria-live="polite" style={{fontSize:10,color:'#777'}}>{filtered.length} of {library.length} shown</span>
+   </div>
+   {filtered.length===0&&<div role="status" style={{padding:'28px 14px',border:'1px dashed var(--line)',background:'#fafaf8',textAlign:'center',fontSize:11,color:'#777'}}>No components match your search. <button onClick={()=>{setQuery('');setCategory('All')}} style={{...btn,marginLeft:8}}>Clear filters</button></div>}
    <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fit,minmax(190px,1fr))',gap:10}}>
-    {library.map((c,i)=><article key={c.id} style={{minWidth:0,border:'1px solid '+(selected.includes(c.id)?'#242420':'var(--line)'),background:'#fff',padding:13}}>
+    {filtered.map(c=>{const i=library.indexOf(c);return <article key={c.id} style={{minWidth:0,border:'1px solid '+(selected.includes(c.id)?'#242420':'var(--line)'),background:'#fff',padding:13}}>
      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:14}}><span className="studio-kicker">{c.category.toUpperCase()} / {String(i+1).padStart(2,'0')}</span><input aria-label={'Select '+c.name} type="checkbox" checked={selected.includes(c.id)} onChange={e=>setSelected(old=>e.target.checked?[...old,c.id]:old.filter(id=>id!==c.id))} style={{accentColor:'#242420',width:15,height:15}}/></div>
      <div style={{height:82,display:'grid',placeItems:'center',background:'#f3f2ee',border:'1px solid var(--line)',marginBottom:12}}>
       {c.id==='button'?<span style={{padding:'9px 14px',background:'#242420',color:'#fff',fontSize:11,borderRadius:5}}>Get started</span>:c.id==='input'?<span style={{padding:9,border:'1px solid #ccc',background:'#fff',fontSize:10,color:'#888',width:'75%'}}>you@example.com</span>:c.id==='badge'?<span style={{padding:'6px 10px',border:'1px solid #cbdcc4',borderRadius:20,background:'#edf4ea',color:'#45633b',fontSize:10}}>● Published</span>:c.id==='card'?<span style={{padding:12,border:'1px solid #ddd',background:'#fff',fontSize:11}}>Content card</span>:<span style={{fontSize:23,color:'#555'}}>Aa</span>}
      </div>
      <strong style={{display:'block',fontSize:13}}>{c.name}</strong><p style={{fontSize:10,color:'#777',lineHeight:1.5,minHeight:30,margin:'5px 0 12px'}}>{c.description}</p>
      <button onClick={()=>{setActive(c.id);setVariant(c.variants[0]);document.getElementById('component-inspector')?.scrollIntoView({behavior:'smooth',block:'start'})}} style={{...btn,width:'100%',justifyContent:'center'}}>Open component <ArrowUpRight size={12}/></button>
-    </article>)}
+    </article>})}
    </div>
   </section>
   <div id="component-inspector" className="component-inspector">
